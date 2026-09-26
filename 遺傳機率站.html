@@ -469,6 +469,7 @@ button.row:hover{border-color:var(--accent);background:var(--accent-soft);transf
       <button class="btn ghost" id="l-prev">← 上一張</button>
       <div class="dots" id="l-dots"></div>
       <div class="rgt">
+        <button class="btn ghost showbtn" id="l-show" title="從這張圖卡對應的簡報頁開始播放">▶ 簡報動畫</button>
         <button class="btn ghost" id="l-resume">回到剛才的題目</button>
         <button class="btn" id="l-next">下一張 →</button>
       </div>
@@ -1365,6 +1366,12 @@ function startPlay(){
 }
 
 el('go').onclick=()=>{grabWho();startPlay()};
+if(el('go-show'))el('go-show').onclick=()=>openShow(0);
+if(el('l-show'))el('l-show').onclick=()=>{
+  const m=/簡報 p(\d+)/.exec((LEARN[LI]||{}).src||'');
+  const p=m?+m[1]:1;
+  openShow(Math.max(0,DECK.findIndex(d=>d[1]>=p)));
+};
 el('go-learn').onclick=()=>{grabWho();openLearn(0)};
 el('to-learn').onclick=()=>{
   saveDraft();
