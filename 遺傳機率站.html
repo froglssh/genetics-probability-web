@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>遺傳機率站</title>
+<title>遺傳機率站｜優化版</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -55,7 +55,7 @@ sub,sup{line-height:0}
 .crumb b{color:var(--ink-2);font-weight:500}
 .linkbtn{margin-left:auto;background:none;border:0;color:var(--accent);font-size:14px;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:3px}
 .track{display:flex;gap:3px}
-.tseg{flex:1;min-width:0;height:29px;border-radius:3px;background:var(--line-soft);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ink-3);position:relative;transition:background .25s,color .25s}
+
 .tseg[data-g="g1"].done{background:var(--g1-soft);color:var(--g1)}
 .tseg[data-g="g2"].done{background:var(--g2-soft);color:var(--g2)}
 .tseg[data-g="g3"].done{background:var(--g3-soft);color:var(--g3)}
@@ -66,13 +66,13 @@ sub,sup{line-height:0}
 .legend{display:flex;gap:15px;flex-wrap:wrap;font-family:var(--mono);font-size:12.5px;color:var(--ink-3)}
 .legend i{display:inline-block;width:22px;height:8px;border-radius:2px;margin-right:5px;vertical-align:1px}
 
-main{padding-block:18px 116px}
+
 .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:20px;align-items:start}
 @media (max-width:880px){.grid{grid-template-columns:1fr}}
 .grid.solo{grid-template-columns:minmax(0,1fr);max-width:860px;margin-inline:auto}
 .stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:var(--shadow);position:sticky;top:120px}
 @media (max-width:880px){.stage{position:static}.grid .panel{order:-1}}
-svg.board{display:block;width:100%;height:auto;max-height:74vh;touch-action:none;user-select:none;-webkit-user-select:none;border-radius:10px}
+svg.board{display:block;width:100%;height:auto;max-height:min(58vh,calc(100vh - 215px));touch-action:none;user-select:none;-webkit-user-select:none;border-radius:10px}
 svg.board text{font-family:var(--sans)}
 svg.board.hot{cursor:crosshair;touch-action:manipulation}
 .boardnote{font-family:var(--mono);font-size:13px;color:var(--ink-3);text-align:center;margin:6px 0 0;letter-spacing:.03em}
@@ -85,8 +85,8 @@ svg.board.hot{cursor:crosshair;touch-action:manipulation}
 .qlabel{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--ink-3);margin-bottom:6px}
 .q{font-size:19px;font-weight:600;line-height:1.65;margin:0 0 4px;text-wrap:balance}
 .qhint{font-size:15.5px;color:var(--ink-2);margin:0 0 14px}
-.opts{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
-.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:12px 15px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:9px;cursor:pointer;transition:border-color .15s,background .15s}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:6px;margin:0;padding:0;list-style:none}
+.opt{display:flex;gap:8px;align-items:center;width:100%;text-align:left;padding:8px 12px;background:var(--surface-2);border:1.5px solid var(--line);border-radius:8px;cursor:pointer;font-size:15px;line-height:1.45;transition:border-color .15s,background .15s}
 .opt:hover{border-color:var(--accent)}
 .opt .k{font-family:var(--mono);font-size:14px;color:var(--ink-3);flex:none;padding-top:2px}
 .opt.sel{border-color:var(--accent);background:var(--accent-soft)} .opt.sel .k{color:var(--accent)}
@@ -324,15 +324,109 @@ table.sum.pg th{background:#4E8A2E} table.sum.rs th{background:#C9612A}
 #show .shbar .sp{flex:1}
 #show .shbar button,#show .shbar select{background:#2E2822;color:#F1EADF;border:1px solid #5A4C3C;border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer;font-family:inherit}
 #show .shno{font-family:var(--mono);font-size:13px;color:#C8BBA8}
+
+.version{background:var(--accent-soft);color:var(--accent);font-size:12px;padding:2px 8px;border-radius:999px;font-family:var(--mono);font-weight:600;margin-left:6px;vertical-align:middle;display:inline-block}
+.track{display:flex;gap:3px;flex-wrap:wrap}
+.tseg{flex:1;min-width:0;height:29px;border-radius:3px;background:var(--line-soft);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--ink-3);position:relative;transition:all .2s;cursor:pointer;user-select:none}
+.tseg:hover{background:var(--line);color:var(--ink)}
+.tseg.attempted{background:var(--warn-soft);color:var(--warn)}
+.tseg[data-g="g1"].done{background:var(--g1-soft);color:var(--g1)}
+.tseg[data-g="g2"].done{background:var(--g2-soft);color:var(--g2)}
+.tseg[data-g="g3"].done{background:var(--g3-soft);color:var(--g3)}
+.tseg.done::after{content:"";position:absolute;left:6px;right:6px;bottom:3px;height:2px;border-radius:2px;background:currentColor;opacity:.5}
+.tseg.done[data-tries="2"]::after{background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 7px)}
+.tseg.done[data-tries="3"]::after{background:var(--warn);opacity:1}
+.tseg.now{background:var(--ink);color:var(--surface);font-weight:600;box-shadow:0 0 0 2px var(--accent)}
+
+.free-nav{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+.free-nav select{background:var(--surface);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:13px;font-family:inherit;cursor:pointer;outline:none;transition:border-color .15s}
+.free-nav select:focus{border-color:var(--accent)}
+.btn.small{padding:6px 14px;font-size:13.5px}
+
+/* 題目圖表與文字尺寸適中優化 */
+main{padding-block:10px 75px}
+.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:16px;align-items:start}
+.stage{padding:10px;top:90px}
+.panel{padding:16px 20px}
+.stagehead{margin-bottom:8px;padding-bottom:8px}
+.stagehead h2{font-size:22px;font-weight:700;letter-spacing:.02em;margin:0 0 2px}
+.stagehead .sub{font-size:14px;color:var(--ink-3);margin:0}
+.qlabel{font-size:12px;letter-spacing:.06em;margin-bottom:3px}
+.q{font-size:19px;font-weight:600;line-height:1.5;margin-bottom:3px}
+.qhint{font-size:14.5px;color:var(--ink-2);margin-bottom:10px}
+
+/* 圖片適中控制，防止過大導致上下滾動 */
+figure{margin:4px auto;background:var(--surface-2);border:1px solid var(--line-soft);border-radius:8px;padding:4px 6px;max-width:400px}
+figure img{border-radius:5px;background:#fff;max-height:165px;width:auto;max-width:100%;object-fit:contain;margin:0 auto;display:block}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--ink-3);margin-top:4px;text-align:center}
+
+.calc figure{max-width:380px;margin:6px auto}
+.calc figure img{max-height:190px;width:auto;max-width:100%;object-fit:contain;margin:0 auto;display:block}
+.calc .ctx{background:var(--accent-soft);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;padding:8px 12px;font-size:15px;margin-bottom:6px}
+.cstep{padding:10px 13px;border-radius:10px}
+.cstep .sq{font-size:15.5px}
+.fx{font-size:18px;line-height:1.9;margin:3px 0}
+.fx input,.fx select{height:36px;font-size:16px;border-radius:7px}
+
+.row{display:grid;grid-template-columns:32px 1fr auto auto;gap:12px;align-items:center;font-size:15.5px;padding:8px 12px;border-radius:7px;background:var(--surface-2);border:1px solid transparent;width:100%;text-align:left;box-sizing:border-box}
+button.row{cursor:pointer;transition:border-color .15s,background .15s,transform .1s;font-family:inherit}
+button.row:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateX(2px)}
+.row.t1{border-left:4px solid var(--ok)}
+.row.t2{border-left:4px solid var(--warn)}
+.row.t3{border-left:4px solid var(--no)}
+.row.skip{border-left:4px solid var(--ink-3);opacity:.85}
+.row.pending{border-left:4px solid var(--line);opacity:.6}
+.lnav .rgt{display:flex;gap:10px;flex-wrap:wrap}
+
+@media (max-width:619px){
+  .barin{flex-wrap:wrap;justify-content:center;gap:8px;padding-block:10px}
+  .free-nav{width:100%;justify-content:space-between}
+  .free-nav select{flex:1}
+  .barmsg{width:100%;text-align:center;order:-1}
+}
+
+
+/* 計算題圖文雙欄自適應佈局 */
+.calc-duo{
+  display:grid;
+  grid-template-columns:minmax(0, 310px) minmax(0, 1fr);
+  gap:16px;
+  align-items:start;
+}
+.calc-side{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.calc-side figure{
+  margin:0;
+  width:100%;
+  max-width:100%;
+}
+.calc-side figure img{
+  max-height:210px;
+}
+.calc-steps{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+@media (max-width:720px){
+  .calc-duo{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+}
+
 </style>
 </head>
 <body>
 
 <header class="topbar hidden" id="topbar"><div class="wrap topin">
   <div class="tprow">
-    <span class="brand">遺傳機率站</span>
+    <span class="brand">遺傳機率站 <span class="version">v2.0 旗艦優化版</span></span>
     <span class="crumb" id="crumb"></span>
-    <button class="linkbtn" id="to-learn">回圖解教學</button>
+    <button class="linkbtn" id="to-learn">💡 重點圖解</button>
   </div>
   <div class="track" id="track"></div>
   <div class="legend">
@@ -350,10 +444,11 @@ table.sum.pg th{background:#4E8A2E} table.sum.rs th{background:#C9612A}
       <p class="lede">讀完課本 P70–P82 和「遺傳法則」簡報之後，跟著孟德爾的豌豆一起算機率：配子怎麼分離、兩種性狀怎麼組合，再到血型與膚色。這一站有好幾題要你<b>一步一步列算式</b>算出機率。</p>
       <div class="heroimg" id="heroimg"></div>
       <ul class="rules">
-        <li><span class="n">1</span><span>建議先看<b>圖解教學</b>（16 張圖卡，其中 4 張含<b>簡報的重要動畫</b>：純品系選拔、雜交實驗流程、分離律、概念檢核；其他以課本圖片說明），再進入 <b>8 道關卡</b>。</span></li>
-        <li><span class="n">2</span><span>關卡有很多種玩法：<div class="kinds"><span>棋盤方格</span><span>比較表勾選</span><span>下拉式計算</span><span>單選／多選</span><span>種子入格</span><span>遺傳模式分類</span></div></span></li>
-        <li><span class="n">3</span><span><b>計算題</b>要依序完成每一步：每個空格都是<b>下拉式選單</b>，從三個答案中選一個，按「檢查這一步」，答對才會打開下一步。拖曳題可以<b>用拖的</b>，也可以<b>先點一張卡片、再點目標位置</b>；手機上點兩下比較穩。</span></li>
-        <li><span class="n">4</span><span>答錯不會擋住你：同一題（計算題是同一步）答錯 <b>5 次</b>，就會自動顯示答案。每一關試了幾次、是否看了答案都會記錄下來，最後變成一張<b>學習診斷卡</b>，請截圖交給老師。</span></li>
+        <li><span class="n">1</span><span>建議先看 <b>💡 重點圖解</b>（16 張精選圖卡，內建孟德爾實驗與遺傳定律動畫），再進入 <b>8 道挑戰關卡</b>。</span></li>
+        <li><span class="n">2</span><span>題目涵蓋多元互動形式：<b>棋盤方格拖曳、基因型特徵比較表、下拉式機率逐步計算、試交與 ABO 血型推理、16 顆種子配對、遺傳模式分類</b>。</span></li>
+        <li><span class="n">3</span><span><b>自由選題與即時草稿</b>：支援頂部進度軌與底部選單隨意跳題，遇到難題可先「跳過 / 稍後作答」，未送出的作答草稿即時保存。</span></li>
+        <li><span class="n">4</span><span>作答卡關時，隨時點擊右上角「💡 重點圖解」查閱該題對應的核心概念，閱畢點擊「回到剛才的題目」即可無縫返回繼續作答。</span></li>
+        <li><span class="n">5</span><span>答錯不中斷，答錯 <b>5 次</b> 自動提供解答與詳解；完成後生成 <b>多維度能力診斷卡</b>，點擊題目可直接重測訂正。</span></li>
       </ul>
       <div class="fields">
         <div class="field"><label for="f-name">姓名</label><input id="f-name" type="text" autocomplete="off" placeholder="王小明"></div>
@@ -373,7 +468,10 @@ table.sum.pg th{background:#4E8A2E} table.sum.rs th{background:#C9612A}
     <div class="lnav">
       <button class="btn ghost" id="l-prev">← 上一張</button>
       <div class="dots" id="l-dots"></div>
-      <button class="btn" id="l-next">下一張 →</button>
+      <div class="rgt">
+        <button class="btn ghost" id="l-resume">回到剛才的題目</button>
+        <button class="btn" id="l-next">下一張 →</button>
+      </div>
     </div>
   </div></section>
 
@@ -399,10 +497,17 @@ table.sum.pg th{background:#4E8A2E} table.sum.rs th{background:#C9612A}
 </main>
 
 <div class="bar hidden" id="bar"><div class="barin">
+  <div class="free-nav">
+    <label for="question-select">快速跳題</label>
+    <select id="question-select" aria-label="選擇題目"></select>
+  </div>
   <span class="barmsg" id="barmsg"></span>
-  <button class="btn ghost" id="reset-btn">重置這一關</button>
+  <button class="btn ghost small" id="prev-btn" title="切換至上一題">← 上一題</button>
+  <button class="btn ghost small" id="skip-btn" title="暫時跳過這題，稍後再作答">跳過 / 稍後作答</button>
+  <button class="btn ghost small" id="reset-btn">重設本題</button>
   <button class="btn" id="check-btn">檢查答案</button>
-  <button class="btn hidden" id="next-btn">下一步 →</button>
+  <button class="btn hidden" id="next-btn">下一題 →</button>
+  <button class="btn ghost small" id="finish-btn" title="查看目前學習診斷">提前結算</button>
 </div></div>
 
 <script>
@@ -756,17 +861,63 @@ const STAGES=[
 const el=id=>document.getElementById(id);
 const KEY='genetics21.v2';
 const REVEAL_N=5;   /* 答錯幾次後自動顯示答案 */
-let ST={idx:0,tries:{},tags:{},who:{n:'',c:'',s:''},t0:0,done:false,passed:{}};
+const LEARN_FOR_STAGE = [6, 7, 15, 10, 8, 11, 12, 13];
+let ST={idx:0,tries:{},tags:{},who:{n:'',c:'',s:''},t0:0,done:false,passed:{},drafts:{}};
 let place={},sel=null,answered=false,pick=new Set(),order=[],layout={};
 let seqv=[],fillv={},fillOn=null,matchv={},gridv={},tfv={},hotStep=0,hotMarks=[],optPerm=[];
+let calcStep=0,calcVals={},calcWrong={},calcRev={},dragDone=false,dragRev=false;
+
 function save(){try{localStorage.setItem(KEY,JSON.stringify(ST))}catch(e){}}
 function load(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return null}
 const GN={g1:'分離律',g2:'獨立分配律',g3:'遺傳法則的延伸'};
 
+function saveDraft(){
+  const s=STAGES[ST.idx];
+  if(!s||answered) return;
+  ST.drafts=ST.drafts||{};
+  if(s.kind==='drag'){
+    ST.drafts[ST.idx]={place:Object.assign({},place),dragDone,dragRev,calcStep,calcVals:Object.assign({},calcVals)};
+  }
+  else if(s.kind==='grid') ST.drafts[ST.idx]={gridv:Object.assign({},gridv)};
+  else if(s.kind==='calc') ST.drafts[ST.idx]={calcStep,calcVals:Object.assign({},calcVals)};
+  else if(s.kind==='single'||s.kind==='multi') ST.drafts[ST.idx]={pick:Array.from(pick)};
+  else if(s.kind==='order') ST.drafts[ST.idx]={seqv:seqv.slice()};
+  else if(s.kind==='fill') ST.drafts[ST.idx]={fillv:Object.assign({},fillv)};
+  else if(s.kind==='tf') ST.drafts[ST.idx]={tfv:Object.assign({},tfv)};
+  save();
+}
+
 /* ── 進度軌 ── */
 function drawTrack(){
-  el('track').innerHTML=STAGES.map((s,i)=>{const t=ST.tries[i],cls=i===ST.idx&&!ST.done?'now':(t!=null&&ST.passed&&ST.passed[i]?'done':'');
-    return `<div class="tseg ${cls}" data-g="${s.g}" data-tries="${t==null?'':Math.min(t,3)}" title="${s.t}">${i+1}</div>`}).join('');
+  const qs=el('question-select');
+  if(qs){
+    qs.innerHTML=STAGES.map((s,i)=>{
+      const isPassed=ST.passed&&ST.passed[i];
+      const tries=ST.tries[i];
+      const hasDraft=ST.drafts&&ST.drafts[i];
+      const statusIcon=isPassed?'✓':(tries!=null||hasDraft?'✎':'•');
+      return `<option value="${i}" ${i===ST.idx?'selected':''}>${String(i+1).padStart(2,'0')}. [${statusIcon}] ${s.t} (${KSHORT[s.kind]||''})</option>`;
+    }).join('');
+  }
+  el('track').innerHTML=STAGES.map((s,i)=>{
+    const t=ST.tries[i];
+    const isPassed=ST.passed&&ST.passed[i];
+    const hasDraft=ST.drafts&&ST.drafts[i];
+    let cls='';
+    if(i===ST.idx&&!ST.done) cls='now';
+    else if(isPassed) cls='done';
+    else if(t!=null||hasDraft) cls='attempted';
+    return `<div class="tseg ${cls}" data-g="${s.g}" data-idx="${i}" data-tries="${t==null?'':Math.min(t,3)}" title="點擊跳至第 ${i+1} 關：${s.t}">${i+1}</div>`;
+  }).join('');
+  document.querySelectorAll('.tseg').forEach(seg=>{
+    seg.onclick=()=>{
+      const target=parseInt(seg.dataset.idx,10);
+      if(!isNaN(target)&&target>=0&&target<STAGES.length&&target!==ST.idx){
+        saveDraft();
+        show(target);
+      }
+    };
+  });
   const s=STAGES[ST.idx];
   el('crumb').innerHTML=`${GN[s.g]} <b>·</b> ${s.t} <b>·</b> ${ST.idx+1} / ${STAGES.length}`;
 }
@@ -781,98 +932,208 @@ function trayLayout(s){
   return{L,H:y+4};
 }
 function pieceSVG(p){
-  if(p.img)return `<rect class="hl" x="${-p.w/2-5}" y="${-p.h/2-5}" width="${p.w+10}" height="${p.h+10}" rx="12" fill="none" stroke="${TEAL}" stroke-width="3" opacity="0"/>
-    <rect x="${-p.w/2}" y="${-p.h/2}" width="${p.w}" height="${p.h}" rx="9" fill="#fff" stroke="#CFC6B6" stroke-width="1.2"/>
-    <image href="${IMG[p.img]}" x="${-p.w/2+3}" y="${-p.h/2+3}" width="${p.w-6}" height="${p.h-6}"/>`;
   const fs=p.fs||(p.label.length>9?14:p.label.length>6?15:p.h<30?15:17);
+  if(p.img){
+    return `<rect class="hl" x="${-p.w/2-5}" y="${-p.h/2-5}" width="${p.w+10}" height="${p.h+10}" rx="12" fill="none" stroke="${TEAL}" stroke-width="3" opacity="0"/>
+      <image href="${IMG[p.img]}" x="${-p.w/2}" y="${-p.h/2}" width="${p.w}" height="${p.h}"/>`;
+  }
   return `<rect class="hl" x="${-p.w/2-5}" y="${-p.h/2-5}" width="${p.w+10}" height="${p.h+10}" rx="12" fill="none" stroke="${TEAL}" stroke-width="3" opacity="0"/>
     <rect x="${-p.w/2}" y="${-p.h/2}" width="${p.w}" height="${p.h}" rx="7" fill="#fff" stroke="${INK}" stroke-width="1.6"/>
     <text y="${fs*.36}" text-anchor="middle" font-size="${fs}" font-weight="600" fill="${INK}">${p.label}</text>`;
 }
 function renderBoard(s){
-  const b=el('board');b.classList.remove('hot');
-  if(s.kind==='hot'){
-    el('stagecard').classList.remove('hidden');el('grid').classList.remove('solo');
-    b.setAttribute('viewBox',`0 0 600 ${s.sceneH}`);b.classList.add('hot');
-    b.innerHTML=s.scene()+`<g id="marks"></g>`;el('st-note').textContent=s.note||'';return;}
   if(s.kind!=='drag'){el('stagecard').classList.add('hidden');el('grid').classList.add('solo');return;}
   el('stagecard').classList.remove('hidden');el('grid').classList.remove('solo');
-  SLOTG=Object.fromEntries(s.slots.map(x=>[x.id,x.group]));
-  order=s.pieces.slice();
-  if(s.shuffle){let seed=ST.idx*7+3;order.sort((a,b)=>{seed=(seed*9301+49297)%233280;return seed/233280-.5})}
-  const TL=trayLayout(s);layout=TL.L;
-  b.setAttribute('viewBox',`0 0 600 ${TL.H}`);
-  let o=s.scene();
-  o+=s.slots.map(x=>`<g class="slotg" data-slot="${x.id}"><rect class="slot" x="${x.x-x.w/2}" y="${x.y-x.h/2}" width="${x.w}" height="${x.h}" rx="7" fill="#FFFFFF" fill-opacity=".72" stroke="${TEAL}" stroke-width="2" stroke-dasharray="5 4" opacity=".9"/></g>`).join('');
-  o+=`<rect x="4" y="${s.sceneH+6}" width="592" height="${TL.H-s.sceneH-10}" rx="12" fill="#F1ECE2" stroke="#D8CEBC" stroke-width="1.5"/>`
-    +txt(18,s.sceneH+28,'托盤　TRAY',{a:'start',fs:13,fw:500,c:'#877865',x:'letter-spacing="2"'});
-  o+=order.map(p=>`<g class="piece" data-piece="${p.id}" tabindex="0" role="button" aria-label="標籤 ${p.label}">${pieceSVG(p)}</g>`).join('');
-  b.innerHTML=o;el('st-note').textContent=s.note||'';
-  syncBoard();
-  b.querySelectorAll('.slotg').forEach(g=>g.addEventListener('click',()=>{
-    if(answered||dragDone||!sel)return;const id=g.dataset.slot;if(place[id])return;
-    for(const k in place)if(place[k]===sel)delete place[k];place[id]=sel;sel=null;syncBoard();}));
+  order=s.shuffle?shuffleArr(s.pieces):s.pieces.slice();
+  const T=trayLayout(s);layout=T.L;el('board').setAttribute('viewBox',`0 0 600 ${T.H}`);
+  const slotSvg=s.slots.map(sl=>`<g class="slotg" data-slot="${sl.id}"><rect class="slot" x="${sl.x-sl.w/2}" y="${sl.y-sl.h/2}" width="${sl.w}" height="${sl.h}" rx="7" fill="${PAPER}" stroke="${TEAL}" stroke-width="1.8" stroke-dasharray="4 3" opacity=".9"/><text x="${sl.x}" y="${sl.y+4}" text-anchor="middle" font-size="12" fill="${TEAL}" opacity=".7">${sl.label||'貼這裡'}</text></g>`).join('');
+  const pieceSvg=s.pieces.map(p=>`<g class="piece" id="p-${p.id}" data-piece="${p.id}" tabindex="0" role="button" aria-label="${p.label}">${pieceSVG(p)}</g>`).join('');
+  el('board').innerHTML=`${s.scene()}${slotSvg}<g id="pieces-layer">${pieceSvg}</g>`;
+  el('st-note').textContent=s.note||'可拖曳或點選放置';syncBoard();
 }
 function syncBoard(){
-  const s=STAGES[ST.idx];if(s.kind!=='drag')return;
-  const inv={};for(const k in place)inv[place[k]]=k;
-  const keep=order;order=order.filter(p=>!inv[p.id]);layout=Object.assign({},layout,trayLayout(s).L);order=keep;
-  order.forEach(p=>{const g=el('board').querySelector(`[data-piece="${p.id}"]`);if(!g)return;
-    const sl=inv[p.id]?s.slots.find(x=>x.id===inv[p.id]):null;
-    const h=sl?{x:sl.x,y:sl.y}:layout[p.id];
-    g.setAttribute('transform',`translate(${h.x},${h.y}) scale(1,1)`);
-    g.classList.toggle('sel',sel===p.id);});
-  s.slots.forEach(x=>{const r=el('board').querySelector(`.slotg[data-slot="${x.id}"] .slot`);if(r)r.setAttribute('opacity',place[x.id]?'0':'.9')});
-  if(!answered&&!dragDone)el('barmsg').textContent=`已放置 ${Object.keys(place).length} / ${s.slots.length} 格`+(sel?'　·　已選取一張標籤，點目標位置放下':'');
+  const s=STAGES[ST.idx];if(!s||s.kind!=='drag')return;
+  const sm={};s.slots.forEach(sl=>sm[sl.id]=sl);
+  s.pieces.forEach(p=>{
+    const g=el('p-'+p.id);if(!g)return;
+    const slId=Object.keys(place).find(k=>place[k]===p.id);
+    let x,y,scale=1;
+    if(slId&&sm[slId]){const sl=sm[slId];x=sl.x;y=sl.y;scale=Math.min(sl.w/p.w,sl.h/p.h,1);}
+    else if(layout[p.id]){x=layout[p.id].x;y=layout[p.id].y;}
+    else{x=300;y=s.sceneH+40;}
+    g.setAttribute('transform',`translate(${x},${y}) scale(${scale})`);
+    g.classList.toggle('sel',sel===p.id);
+  });
 }
-function svgPt(e){const b=el('board'),p=b.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(b.getScreenCTM().inverse())}
-let drag=null;
+let dragP=null,dragOff=[0,0];
+function ptBoard(e){const b=el('board'),r=b.getBoundingClientRect(),vb=b.viewBox.baseVal;return[(e.clientX-r.left)/r.width*vb.width,(e.clientY-r.top)/r.height*vb.height];}
 function onDown(e){
-  if(answered||dragDone||STAGES[ST.idx].kind!=='drag')return;const g=e.target.closest('.piece');if(!g)return;e.preventDefault();
-  const p=svgPt(e),m=/translate\(([-\d.]+),([-\d.]+)\)/.exec(g.getAttribute('transform'));
-  drag={g,id:g.dataset.piece,dx:p.x-(+m[1]),dy:p.y-(+m[2]),x0:+m[1],y0:+m[2],moved:false};
-  g.parentNode.appendChild(g);g.setPointerCapture&&g.setPointerCapture(e.pointerId);g.style.cursor='grabbing';
-}
-function onMove(e){if(!drag)return;const p=svgPt(e),nx=p.x-drag.dx,ny=p.y-drag.dy;
-  if(!drag.moved&&Math.hypot(nx-drag.x0,ny-drag.y0)<5)return;drag.moved=true;
-  drag.g.setAttribute('transform',`translate(${nx},${ny}) scale(1,1)`);}
-function onUp(e){
-  if(!drag)return;const d=drag;drag=null;d.g.style.cursor='';
-  const s=STAGES[ST.idx],p=svgPt(e);
-  if(!d.moved){sel=(sel===d.id?null:d.id);syncBoard();return;}
-  let best=null,bd=1e9;
-  s.slots.forEach(x=>{if(place[x.id]&&place[x.id]!==d.id)return;const dd=Math.hypot(x.x-p.x,x.y-p.y);if(dd<bd){bd=dd;best=x}});
-  for(const k in place)if(place[k]===d.id)delete place[k];
-  if(best&&bd<Math.max(best.w,best.h)/2+30)place[best.id]=d.id;
-  sel=null;syncBoard();
-}
-
-/* ── 點圖找位置 ── */
-function hotClick(e){
-  const s=STAGES[ST.idx];if(s.kind!=='hot'||answered)return;
-  const p=svgPt(e),H=s.sceneH,px=p.x/6,py=p.y/H*100,r=s.region(px,py),step=s.steps[hotStep];
-  const mk=el('marks');
-  ST.tries[ST.idx]=ST.tries[ST.idx]||1;
-  if(r===step.want){
-    mk.insertAdjacentHTML('beforeend',`<circle cx="${p.x}" cy="${p.y}" r="11" fill="${GREEN}" fill-opacity=".85" stroke="#fff" stroke-width="3"/>`+
-      `<rect x="${p.x-62}" y="${p.y-44}" width="124" height="26" rx="13" fill="${[GREEN,ORANGE,PURPLE][hotStep%3]}"/>`+txt(p.x,p.y-26,step.lbl,{fs:14,c:'#fff'}));
-    hotStep++;
-    if(hotStep<s.steps.length){el('q-text').textContent=s.steps[hotStep].q;renderHotSteps(s);
-      el('q-fb').innerHTML=`<div class="fb ok"><h4>✓ 答對了</h4><p>${step.ok}</p></div>`;}
-    else{renderHotSteps(s);pass(s);}
-  }else{
-    ST.tries[ST.idx]++;addTags([s.tag]);
-    mk.insertAdjacentHTML('beforeend',`<g class="xm"><circle cx="${p.x}" cy="${p.y}" r="10" fill="none" stroke="#B8402F" stroke-width="3"/><path d="M${p.x-6},${p.y-6}L${p.x+6},${p.y+6}M${p.x+6},${p.y-6}L${p.x-6},${p.y+6}" stroke="#B8402F" stroke-width="3"/></g>`);
-    const last=mk.lastElementChild;setTimeout(()=>last&&last.remove(),1600);
-    el('q-fb').innerHTML=`<div class="fb no"><h4>再找找看</h4><p>${s.miss[r]}</p><p><span class="tag">${TAGS[s.tag][0]}</span></p></div>`;
-    el('barmsg').textContent=`已點錯 ${ST.tries[ST.idx]-1} 次`;
+  if(answered||dragDone)return;const s=STAGES[ST.idx];if(!s||s.kind!=='drag')return;
+  const pg=e.target.closest&&e.target.closest('.piece');
+  const sg=e.target.closest&&e.target.closest('.slotg');
+  if(pg){
+    const pid=pg.dataset.piece;
+    if(sel&&sel!==pid){
+      const slOfOther=Object.keys(place).find(k=>place[k]===sel);
+      const slOfThis=Object.keys(place).find(k=>place[k]===pid);
+      if(slOfOther&&!slOfThis){place[slOfOther]=pid;sel=null;syncBoard();saveDraft();return;}
+    }
+    sel=(sel===pid?null:pid);dragP=pid;const[x,y]=ptBoard(e);
+    const slId=Object.keys(place).find(k=>place[k]===pid);
+    const sm={};s.slots.forEach(sl=>sm[sl.id]=sl);
+    const cur=slId&&sm[slId]?{x:sm[slId].x,y:sm[slId].y}:layout[pid]||{x:300,y:300};
+    dragOff=[x-cur.x,y-cur.y];
+    const layer=el('pieces-layer');layer.appendChild(pg);
+    try{pg.setPointerCapture(e.pointerId)}catch(_){}
+    syncBoard();e.preventDefault();return;
   }
-  drawTrack();save();
+  if(sg&&sel){
+    const slId=sg.dataset.slot;const oldSl=Object.keys(place).find(k=>place[k]===sel);
+    if(oldSl)delete place[oldSl];
+    const occ=place[slId];
+    if(occ&&occ!==sel){if(oldSl)place[oldSl]=occ;else delete place[slId];}
+    place[slId]=sel;sel=null;syncBoard();saveDraft();e.preventDefault();
+  }
 }
-function renderHotSteps(s){el('q-opts').innerHTML=`<div class="hotstep">${s.steps.map((x,i)=>`<span class="${i<hotStep?'ok':i===hotStep?'on':''}">${i<hotStep?'✓ ':''}${x.lbl.split('：')[0]}</span>`).join('')}</div>`}
+function onMove(e){
+  if(!dragP)return;const[x,y]=ptBoard(e);const g=el('p-'+dragP);if(!g)return;
+  g.setAttribute('transform',`translate(${x-dragOff[0]},${y-dragOff[1]})`);
+}
+function onUp(e){
+  if(!dragP)return;const s=STAGES[ST.idx];const pid=dragP;dragP=null;
+  const[x,y]=ptBoard(e);
+  const hit=s.slots.find(sl=>Math.abs(x-sl.x)<=sl.w/2+10&&Math.abs(y-sl.y)<=sl.h/2+10);
+  const oldSl=Object.keys(place).find(k=>place[k]===pid);
+  if(hit){
+    if(oldSl)delete place[oldSl];
+    const occ=place[hit.id];
+    if(occ&&occ!==pid){if(oldSl)place[oldSl]=occ;else delete place[hit.id];}
+    place[hit.id]=pid;sel=null;
+  }else if(y<s.sceneH&&oldSl){delete place[oldSl];}
+  syncBoard();saveDraft();
+}
 
-/* ── 各題型的面板 ── */
-function refHTML(list){return `<div class="refs">${list.map(r=>`<figure><img src="${IMG[r.src]}" alt="${r.cap}" loading="lazy" class="zoomable"><figcaption>${r.cap}</figcaption></figure>`).join('')}</div>`}
+/* ── Panel 繪製 ── */
+function drawGrid(s){
+  const box=el('q-opts');
+  let h=`<table class="gtab"><thead><tr><th>特徵</th>${s.cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>`;
+  s.rows.forEach((r,ri)=>{
+    h+=`<tr><td class="stmt">${r[0]}</td>`;
+    s.cols.forEach((_,ci)=>{
+      const k=ri+'_'+ci,v=gridv[k];
+      const glyph=v==null?'':v===1?'✓':'✗';
+      const cls=v==null?'':v===1?'yes':'no';
+      h+=`<td><button class="gbtn ${cls}" data-k="${k}">${glyph}</button></td>`;
+    });
+    h+=`</tr>`;
+  });
+  h+=`</tbody></table>`;
+  box.innerHTML=h;
+  box.querySelectorAll('.gbtn').forEach(b=>{
+    b.onclick=()=>{
+      const k=b.dataset.k,v=gridv[k];
+      gridv[k]=(v==null?1:v===1?0:null);
+      drawGrid(s);
+      saveDraft();
+    };
+  });
+}
+function drawTF(s,reveals){
+  const box=el('q-opts');
+  const h=s.items.map((it,i)=>{
+    const val=tfv[i];
+    const isRev=reveals&&reveals[i];
+    return `<div class="tfitem">
+      <div class="tftext">${it[0]}${isRev?`<div class="tfexp" style="color:var(--accent);font-size:13.5px;margin-top:4px">${it[3]}</div>`:''}</div>
+      <div class="tfbtns">
+        <button class="tfb ${val===true?'t':''}" data-i="${i}" data-v="1">○</button>
+        <button class="tfb ${val===false?'f':''}" data-i="${i}" data-v="0">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+  box.innerHTML=`<div class="tflist">${h}</div>`;
+  box.querySelectorAll('.tfb').forEach(b=>{
+    b.onclick=()=>{
+      const i=+b.dataset.i,v=b.dataset.v==='1';
+      tfv[i]=(tfv[i]===v?null:v);
+      drawTF(s);
+      saveDraft();
+    };
+  });
+}
+function drawCalc(s,msg){
+  const o=el('q-opts');o.className='calc';const top=o.querySelector(':scope > .fb');const keep=top&&s===STAGES[ST.idx].then?top.outerHTML:'';
+  const stepsHtml = s.steps.map((st,si)=>`<div class="cstep ${si<calcStep?'done':si===calcStep?'now':'lock'} ${calcRev[si]?'rev':''}"><div class="sh"><span class="sn">步驟 ${si+1}</span><span class="sq">${si<=calcStep?st.q:'完成上一步後打開'}</span></div>
+     ${si<=calcStep?`<div class="fx">${fxHTML(s,si,st)}</div>`:''}
+     ${si===calcStep&&!answered?`<button class="cbtn" id="cbtn">檢查這一步</button>${msg?`<div class="cmsg ${msg.ok?'ok':'no'}">${msg.t}</div>`:''}`:''}
+     ${si<calcStep&&calcRev[si]?`<div class="cmsg rev">這一步已答錯 ${REVEAL_N} 次，已自動顯示答案。提示：${st.hint}</div>`:''}${si<calcStep&&st.ok?`<div class="cmsg ok">${st.ok}</div>`:''}</div>`).join('');
+
+  if(s.cimg){
+    o.innerHTML=keep+`<div class="qbody calc-duo">
+      <div class="calc-side">
+        <div class="ctx">${s.ctx}</div>
+        <figure><img src="${IMG[s.cimg]}" alt="參考圖" class="zoomable"><figcaption>參考圖（點圖可放大）</figcaption></figure>
+      </div>
+      <div class="calc-steps">${stepsHtml}</div>
+    </div>`;
+  } else {
+    o.innerHTML=keep+`<div class="qbody"><div class="ctx">${s.ctx}</div><div class="calc-steps">${stepsHtml}</div></div>`;
+  }
+  bindZoom(o);
+  o.querySelectorAll('.fx input,.fx select').forEach(x=>{
+    x.addEventListener('input',()=>{calcVals[x.dataset.k]=x.value;x.classList.remove('bad','good');saveDraft();});
+    x.addEventListener('change',()=>{calcVals[x.dataset.k]=x.value;saveDraft();});
+    x.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();checkCalcStep()}});
+  });
+  const b=el('cbtn');if(b)b.onclick=checkCalcStep;
+  const first=o.querySelector('.cstep.now input,.cstep.now select');if(first&&msg===undefined&&calcStep>0)first.focus({preventScroll:true});
+}
+function fxHTML(s,si,st){
+  let k=0;
+  return st.f.map(part=>{
+    if(typeof part==='string')return `<span>${part}</span>`;
+    const key=si+'_'+(k++),val=calcVals[key]||'';
+    const isLocked=si<calcStep;
+    if(isLocked)return `<span class="v">${val||part.a}</span>`;
+    if(part.sel)return `<select data-k="${key}" ${answered?'disabled':''}><option value="">—請選擇—</option>${part.sel.map(x=>`<option value="${x}" ${val===x?'selected':''}>${x}</option>`).join('')}</select>`;
+    return `<input type="text" data-k="${key}" value="${val}" autocomplete="off" ${answered?'disabled':''}>`;
+  }).join('');
+}
+const calcObj=()=>(STAGES[ST.idx].then&&dragDone)?STAGES[ST.idx].then:STAGES[ST.idx];
+
+function checkCalcStep(){
+  const S0=STAGES[ST.idx],s=calcObj();if(answered||!s)return;const st=s.steps[calcStep];
+  const blanks=st.f.filter(p=>typeof p!=='string');
+  const keys=blanks.map((_,k)=>calcStep+'_'+k);
+  const empty=keys.some(k=>!calcVals[k]||!calcVals[k].trim());
+  if(empty){drawCalc(s,{ok:false,t:'請填寫或選擇這一步的所有空格。'});return;}
+  const wrong=keys.some((k,idx)=>{
+    const val=(calcVals[k]||'').trim();
+    return val!==blanks[idx].a;
+  });
+  if(!wrong){
+    calcStep++;
+    if(calcStep>=s.steps.length){pass(S0);}
+    else{drawCalc(s,{ok:true,t:'✓ 這一步正確！請繼續下一步。'});}
+  }else{
+    const stepKey=ST.idx+'_'+calcStep;
+    calcWrong[stepKey]=(calcWrong[stepKey]||0)+1;
+    if(st.tag)addTags([st.tag]);
+    if(calcWrong[stepKey]>=REVEAL_N){
+      keys.forEach((k,idx)=>calcVals[k]=blanks[idx].a);
+      calcRev[calcStep]=true;
+      calcStep++;
+      if(calcStep>=s.steps.length){pass(S0,true);}
+      else{drawCalc(s,{ok:false,t:`已答錯 ${REVEAL_N} 次，已為你填入答案。請繼續下一步。`});}
+    }else{
+      drawCalc(s,{ok:false,t:`答案有誤。提示：${st.hint||'請再檢查一下。'}（再答錯 ${REVEAL_N-calcWrong[stepKey]} 次將顯示答案）`});
+    }
+  }
+  saveDraft();save();
+}
+
+function refHTML(list){return `<div class="refs">${(list||[]).map(r=>`<figure><img src="${IMG[r.src]}" alt="${r.cap}" loading="lazy" class="zoomable"><figcaption>${r.cap}</figcaption></figure>`).join('')}</div>`}
+
 function renderPanel(s){
   el('st-title').textContent=s.t;el('st-sub').textContent=s.sub;
   const ph=el('st-phase');ph.className='phase '+s.g;ph.textContent=GN[s.g];
@@ -880,255 +1141,217 @@ function renderPanel(s){
   el('q-text').textContent=s.kind==='hot'?s.steps[0].q:s.q;el('q-hint').textContent=s.hint||'';
   const o=el('q-opts');o.innerHTML='';o.className='';
   if(s.kind==='single'||s.kind==='multi'){
-    optPerm=shuffleArr(s.opts.map((x,i)=>i));
-    o.innerHTML=`<ul class="opts">${optPerm.map((i,pos)=>`<li><button class="opt" data-i="${i}"><span class="k">${'ABCDEF'[pos]}</span><span>${s.opts[i].t}</span></button></li>`).join('')}</ul>`;
+    optPerm=s._optPerm||(s._optPerm=shuffleArr(s.opts.map((x,i)=>i)));
+    o.innerHTML=`<ul class="opts">${optPerm.map((i,pos)=>`<li><button class="opt ${pick.has(i)?'sel':''}" data-i="${i}"><span class="k">${'ABCDEF'[pos]}</span><span>${s.opts[i].t}</span></button></li>`).join('')}</ul>`;
     o.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
       if(answered)return;const i=+b.dataset.i;
       if(s.kind==='single'){pick.clear();pick.add(i)}else{pick.has(i)?pick.delete(i):pick.add(i)}
       o.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel',pick.has(+x.dataset.i)));
-      el('barmsg').textContent=pick.size?`已選 ${pick.size} 項`:'';}));
+      el('barmsg').textContent=pick.size?`已選 ${pick.size} 項`:'';
+      saveDraft();
+    }));
   }
-  if(s.kind==='hot')renderHotSteps(s);
   if(s.kind==='calc')drawCalc(s);
-  if(s.kind==='order'){s._disp=s._disp||dispOrder(s.items);drawOrder(s);}
-  if(s.kind==='fill'){s._bank=s._bank||shuffleArr(s.bank);drawFill(s);}
-  if(s.kind==='match'){s._perm=s._perm||s.rows.map(r=>shuffleArr(r.opts.map((x,i)=>i)));drawMatch(s);}
   if(s.kind==='grid')drawGrid(s);
   if(s.kind==='tf')drawTF(s);
   el('q-fb').innerHTML=s.preRefs?refHTML(s.preRefs):'';bindZoom(el('q-fb'));bindZoom(o);
 }
-function dispOrder(items){let d;do{d=shuffleArr(items.map((x,i)=>i))}while(d.every((v,i)=>v===i));return d}
-/* 排序 */
-function drawOrder(s,mark){
-  const lab=v=>s.imgs?`<img src="${IMG[s.items[v]]}" alt="步驟圖">`:s.items[v];
-  const o=el('q-opts');
-  o.className=s.imgs?'ximg':'';o.innerHTML=`<div class="qbody"><div class="minihead">你的順序</div><div class="seq">${s.items.map((x,i)=>{const v=seqv[i];
-     return `<div class="seqslot ${v!=null?'fill':''} ${mark&&mark[i]!=null?(mark[i]?'good':'bad'):''}" data-i="${i}"><span class="no">${i+1}</span><span>${v!=null?lab(v):'<span style="color:var(--ink-3)">（點下方'+(s.imgs?'圖片':'卡片')+'放進來）</span>'}</span></div>`}).join('')}</div>
-   <div class="minihead">${s.imgs?'候選圖片':'候選卡片'}</div><div class="pool">${s._disp.map(i=>`<button class="card ${seqv.includes(i)?'used':''}" data-v="${i}">${lab(i)}</button>`).join('')}</div></div>`;
-  o.querySelectorAll('.card').forEach(b=>b.onclick=()=>{if(answered)return;const v=+b.dataset.v;const k=seqv.findIndex(x=>x==null);const pos=k<0?seqv.length:k;if(pos>=s.items.length)return;seqv[pos]=v;drawOrder(s);el('barmsg').textContent=`已排 ${seqv.filter(x=>x!=null).length} / ${s.items.length}`;});
-  o.querySelectorAll('.seqslot.fill').forEach(b=>b.onclick=()=>{if(answered)return;seqv[+b.dataset.i]=null;drawOrder(s);});
-}
-/* 填空 */
-function blanksOf(s){const L=[];s.eqs.forEach((e,ei)=>e.parts.forEach((p,pi)=>{if(typeof p!=='string')L.push({key:ei+'_'+pi,ei,a:p.a,grp:p.grp})}));return L}
-function drawFill(s,mark){
-  const o=el('q-opts');const BL=blanksOf(s);if(fillOn==null)fillOn=BL[0].key;
-  o.innerHTML=`<div class="qbody">${s.eqs.map((e,ei)=>`<div class="eq ${s.plain?'plain':''}"><div class="nm">${e.nm}</div><div class="ln">${e.parts.map((p,pi)=>{if(typeof p==='string')return `<span>${p}</span>`;
-      const k=ei+'_'+pi,v=fillv[k];return `<button class="blank ${v?'filled':''} ${fillOn===k&&!answered?'on':''} ${mark&&mark[k]!=null?(mark[k]?'good':'bad'):''}" data-k="${k}" aria-label="空格">${v||'　'}</button>`}).join('')}</div></div>`).join('')}
-    <div class="minihead">選項（可重複使用）</div><div class="bank">${s._bank.map(t=>`<button class="chip ${s.plain?'sans':''}" data-t="${t}">${t}</button>`).join('')}</div></div>`;
-  o.querySelectorAll('.blank').forEach(b=>b.onclick=()=>{if(answered)return;fillOn=b.dataset.k;drawFill(s);});
-  o.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{if(answered||!fillOn)return;fillv[fillOn]=b.dataset.t;
-    const nx=BL.find(x=>!fillv[x.key]);fillOn=nx?nx.key:fillOn;drawFill(s);el('barmsg').textContent=`已填 ${Object.keys(fillv).length} / ${BL.length} 格`;});
-}
-/* 配對 */
-function drawMatch(s,mark){
-  const o=el('q-opts');
-  o.innerHTML=`<div class="qbody"><figure><img src="${IMG[s.qimg]}" alt="圖表" class="zoomable"><figcaption>課本 P27 圖表判讀：圖 (a)、圖 (b)</figcaption></figure>
-   ${s.rows.map((r,ri)=>`<div class="mrow ${mark&&mark[ri]!=null?(mark[ri]?'good':'bad'):''}"><div class="mlb">${r.lb}</div><div class="ch">${s._perm[ri].map(oi=>`<button class="seg ${matchv[ri]===oi?'on':''}" data-r="${ri}" data-o="${oi}">${r.opts[oi]}</button>`).join('')}</div></div>`).join('')}</div>`;
-  o.querySelectorAll('.seg').forEach(b=>b.onclick=()=>{if(answered)return;matchv[+b.dataset.r]=+b.dataset.o;drawMatch(s);el('barmsg').textContent=`已選 ${Object.keys(matchv).length} / ${s.rows.length} 列`;});
-  bindZoom(o);
-}
-/* 比較表 */
-function drawGrid(s,mark){
-  const o=el('q-opts');
-  o.innerHTML=`<table class="gtab"><tr><th style="text-align:left">特徵</th>${s.cols.map(c=>`<th>${c}</th>`).join('')}</tr>
-   ${s.rows.map((r,ri)=>`<tr class="${mark&&mark[ri]!=null?(mark[ri]?'good':'bad'):''}"><td>${r[0]}</td>${s.cols.map((c,ci)=>{const v=gridv[ri+'_'+ci];
-     return `<td class="c"><button class="gbtn ${v===1?'y':v===0?'n':''}" data-k="${ri}_${ci}" aria-label="${r[0]}／${c}">${v===1?'✓':v===0?'✗':''}</button></td>`}).join('')}</tr>`).join('')}</table>`;
-  o.querySelectorAll('.gbtn').forEach(b=>b.onclick=()=>{if(answered)return;const k=b.dataset.k,v=gridv[k];gridv[k]=v===1?0:1;drawGrid(s);
-    el('barmsg').textContent=`已填 ${Object.keys(gridv).length} / ${s.rows.length*s.cols.length} 格`;});
-}
-/* 是非 */
-function drawTF(s,mark){
-  const o=el('q-opts');
-  o.innerHTML=`<div class="qbody">${s.items.map((it,i)=>`<div class="tfrow ${mark&&mark[i]!=null?(mark[i]?'good':'bad'):''}"><span class="i">${String(i+1).padStart(2,'0')}</span><span>${it[0]}</span>
-     <span class="bt"><button class="tfb o ${tfv[i]===true?'on':''}" data-i="${i}" data-v="1" aria-label="正確">○</button><button class="tfb x ${tfv[i]===false?'on':''}" data-i="${i}" data-v="0" aria-label="錯誤">✕</button></span>
-     ${answered?`<span class="ex">${it[1]?'○ 正確。':'✕ 錯誤。'}${it[3]}</span>`:''}</div>`).join('')}</div>`;
-  o.querySelectorAll('.tfb').forEach(b=>b.onclick=()=>{if(answered)return;tfv[+b.dataset.i]=b.dataset.v==='1';drawTF(s,mark);
-    el('barmsg').textContent=`已作答 ${Object.keys(tfv).length} / ${s.items.length} 句`;});
-}
-
-
-/* ── 逐步計算題 ── */
-let calcStep=0,calcVals={},calcWrong={},calcRev={},dragDone=false,dragRev=false;
-const calcObj=()=>{const s=STAGES[ST.idx];return s.kind==='calc'?s:(dragDone&&s.then?s.then:null)};
-function parseNum(t){t=String(t||'').trim().replace(/／/g,'/').replace(/＝/g,'').replace(/\s+/g,'').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-65248));
-  if(!t)return NaN;let m;
-  if((m=t.match(/^(-?\d+(?:\.\d+)?)%$/)))return +m[1]/100;
-  if((m=t.match(/^(-?\d+(?:\.\d+)?)\/(\d+(?:\.\d+)?)$/)))return (+m[2])?(+m[1])/(+m[2]):NaN;
-  if(/^-?\d+(\.\d+)?$/.test(t))return +t;return NaN;}
-const fracEq=(a,b)=>Math.abs(a-b)<1e-6;
-function fxHTML(s,si,st){let bi=0;
-  return st.f.map(p=>{if(typeof p==='string')return `<span>${p}</span>`;const k=si+'_'+(bi++);
-    if(si<calcStep){return `<span class="v">${p.sel?p.a:(calcRev[si]?p.a:(calcVals[k]||p.a))}</span>`}
-    if(si>calcStep)return `<span class="v" style="color:var(--ink-3);border-color:var(--line)">?</span>`;
-    if(p.sel)return `<select data-k="${k}" aria-label="選擇答案"><option value="">選擇</option>${p.sel.map(o=>`<option ${calcVals[k]===o?'selected':''}>${o}</option>`).join('')}</select>`;
-    return `<input data-k="${k}" inputmode="text" autocomplete="off" aria-label="答案" value="${calcVals[k]||''}" placeholder="?">`}).join('');}
-function drawCalc(s,msg){
-  const o=el('q-opts');o.className='calc';const top=o.querySelector(':scope > .fb');const keep=top&&s===STAGES[ST.idx].then?top.outerHTML:'';
-  o.innerHTML=keep+`<div class="qbody"><div class="ctx">${s.ctx}</div>`+(s.cimg?`<figure><img src="${IMG[s.cimg]}" alt="參考圖" class="zoomable"><figcaption>參考圖（點圖可放大）</figcaption></figure>`:'')+
-   s.steps.map((st,si)=>`<div class="cstep ${si<calcStep?'done':si===calcStep?'now':'lock'} ${calcRev[si]?'rev':''}"><div class="sh"><span class="sn">步驟 ${si+1}</span><span class="sq">${si<=calcStep?st.q:'完成上一步後打開'}</span></div>
-     ${si<=calcStep?`<div class="fx">${fxHTML(s,si,st)}</div>`:''}
-     ${si===calcStep&&!answered?`<button class="cbtn" id="cbtn">檢查這一步</button>${msg?`<div class="cmsg ${msg.ok?'ok':'no'}">${msg.t}</div>`:''}`:''}
-     ${si<calcStep&&calcRev[si]?`<div class="cmsg rev">這一步已答錯 ${REVEAL_N} 次，已自動顯示答案。提示：${st.hint}</div>`:''}${si<calcStep&&st.ok?`<div class="cmsg ok">${st.ok}</div>`:''}</div>`).join('')+`</div>`;
-  bindZoom(o);
-  o.querySelectorAll('.fx input,.fx select').forEach(x=>{x.addEventListener('input',()=>{calcVals[x.dataset.k]=x.value;x.classList.remove('bad','good')});
-    x.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();checkCalcStep()}})});
-  const b=el('cbtn');if(b)b.onclick=checkCalcStep;
-  const first=o.querySelector('.cstep.now input,.cstep.now select');if(first&&msg===undefined&&calcStep>0)first.focus({preventScroll:true});
-}
-function revMsg(){const n=Object.keys(calcRev).length;const a=[];
-  if(dragRev)a.push(`棋盤方格答錯 ${REVEAL_N} 次，已自動放好正確的種子`);
-  if(n)a.push(`有 ${n} 個計算步驟因答錯 ${REVEAL_N} 次而自動顯示答案`);
-  return a.length?a.join('；')+'，請對照答案再看一次。':false;}
-/* 拖曳完成後接著做下拉式計算 */
-function enterThen(s,rev){
-  dragDone=true;dragRev=!!rev;sel=null;syncBoard();
-  if(rev){ST.revealed=ST.revealed||{};ST.revealed[ST.idx]=true;}
-  el('check-btn').classList.add('hidden');el('reset-btn').classList.add('hidden');
-  el('q-label').textContent=KIND.calc;el('q-text').textContent=s.then.q;el('q-hint').textContent=s.then.hint||'';
-  calcStep=0;calcVals={};calcWrong={};calcRev={};
-  drawCalc(s.then);
-  el('q-opts').insertAdjacentHTML('afterbegin',rev?`<div class="fb rev"><h4>答案已顯示</h4><p>棋盤方格已答錯 ${REVEAL_N} 次，種子已自動放好。對照左邊的棋盤，繼續完成計算。</p></div>`:`<div class="fb ok"><h4>✓ 種子全部放對了</h4><p>接著用棋盤算出各種表現型的機率。</p></div>`);
-  el('q-fb').innerHTML='';
-  el('barmsg').textContent=`第二部分：共 ${s.then.steps.length} 步，完成一步才會打開下一步`;
-  drawTrack();save();
-  el('q-opts').scrollIntoView({behavior:'smooth',block:'start'});
-}
-function checkCalcStep(){
-  const S0=STAGES[ST.idx],s=calcObj();if(answered||!s)return;const st=s.steps[calcStep];
-  const blanks=st.f.filter(p=>typeof p!=='string');
-  const keys=blanks.map((p,i)=>calcStep+'_'+i);
-  if(keys.some(k=>!String(calcVals[k]||'').trim())){el('barmsg').textContent='這一步還有空格沒填。';return;}
-  const vals=keys.map((k,i)=>blanks[i].sel?calcVals[k]:parseNum(calcVals[k]));
-  if(blanks.some((p,i)=>!p.sel&&isNaN(vals[i]))){drawCalc(s,{ok:false,t:'看不懂輸入的格式，請輸入分數（例如 3/16）、小數或整數。'});return;}
-  const good=blanks.map((p,i)=>p.sel?vals[i]===p.a:fracEq(vals[i],parseNum(p.a)));
-  /* 可交換的乘數：同一組內只要數值集合相同就算對 */
-  const grp={};blanks.forEach((p,i)=>{if(p.g)(grp[p.g]=grp[p.g]||[]).push(i)});
-  Object.values(grp).forEach(ix=>{const want=ix.map(i=>parseNum(blanks[i].a)).sort((a,b)=>a-b),got=ix.map(i=>vals[i]).sort((a,b)=>a-b);
-    if(want.every((w,j)=>fracEq(w,got[j])))ix.forEach(i=>good[i]=true)});
-  ST.tries[ST.idx]=(ST.tries[ST.idx]||1);
-  if(good.every(Boolean)){
-    calcStep++;
-    if(calcStep>=s.steps.length){drawCalc(s);pass(S0,revMsg());return;}
-    drawCalc(s,{ok:true,t:''});const nx=el('q-opts').querySelector('.cstep.now');if(nx)nx.scrollIntoView({behavior:'smooth',block:'center'});
-    el('barmsg').textContent=`步驟 ${calcStep} 完成！繼續下一步（共 ${s.steps.length} 步）`;
-  }else{
-    ST.tries[ST.idx]++;addTags([st.tag]);
-    calcWrong[calcStep]=(calcWrong[calcStep]||0)+1;
-    if(calcWrong[calcStep]>=REVEAL_N){calcRev[calcStep]=true;calcStep++;
-      if(calcStep>=s.steps.length){drawCalc(s);pass(S0,revMsg());drawTrack();save();return;}
-      drawCalc(s,{ok:false,t:''});el('barmsg').textContent=`步驟 ${calcStep} 已自動顯示答案，繼續下一步`;drawTrack();save();return;}
-    drawCalc(s,{ok:false,t:`再想一下：${st.hint}　<span class="tag">${TAGS[st.tag][0]}</span><br><span class="left">這一步再答錯 ${REVEAL_N-calcWrong[calcStep]} 次，就會自動顯示答案。</span>`});
-    const inp=el('q-opts').querySelectorAll('.cstep.now input,.cstep.now select');inp.forEach((x,i)=>x.classList.add(good[i]?'good':'bad'));
-    el('barmsg').textContent=`已答錯 ${ST.tries[ST.idx]-1} 次`;
-  }
-  drawTrack();save();
-}
 
 function show(i){
+  if(ST.idx!==i) saveDraft();
   ST.idx=i;calcStep=0;calcVals={};calcWrong={};calcRev={};dragDone=false;dragRev=false;place={};sel=null;pick.clear();answered=false;seqv=[];fillv={};fillOn=null;matchv={};gridv={};tfv={};hotStep=0;
   const s=STAGES[i];
-  el('check-btn').classList.toggle('hidden',s.kind==='hot'||s.kind==='calc');el('next-btn').classList.add('hidden');
-  el('reset-btn').classList.toggle('hidden',!['drag','order','fill','grid','tf','match'].includes(s.kind));el('barmsg').textContent=s.kind==='hot'?'在圖上點一下作答':s.kind==='calc'?`共 ${s.steps.length} 步，完成一步才會打開下一步`:'';
-  renderPanel(s);renderBoard(s);drawTrack();save();window.scrollTo({top:0,behavior:'smooth'});
+  const isPassed=ST.passed&&ST.passed[i];
+  const isRev=ST.revealed&&ST.revealed[i];
+  const draft=(ST.drafts&&ST.drafts[i])||null;
+  if(draft){
+    if(draft.place) place=Object.assign({},draft.place);
+    if(draft.dragDone) dragDone=draft.dragDone;
+    if(draft.dragRev) dragRev=draft.dragRev;
+    if(draft.calcStep!=null) calcStep=draft.calcStep;
+    if(draft.calcVals) calcVals=Object.assign({},draft.calcVals);
+    if(draft.gridv) gridv=Object.assign({},draft.gridv);
+    if(draft.pick) pick=new Set(draft.pick);
+    if(draft.seqv) seqv=draft.seqv.slice();
+    if(draft.fillv) fillv=Object.assign({},draft.fillv);
+    if(draft.tfv) tfv=Object.assign({},draft.tfv);
+  }
+
+  el('prev-btn').disabled=(i===0);
+  el('prev-btn').classList.toggle('hidden',i===0);
+  el('finish-btn').classList.remove('hidden');
+
+  renderPanel(s);
+  renderBoard(s);
+
+  if(isPassed){
+    answered=true;
+    if(isRev) revealAnswer(s);
+    else pass(s,false);
+  } else {
+    if(s.kind==='drag'&&dragDone&&s.then){
+      enterThen(s,dragRev);
+    } else {
+      el('check-btn').classList.toggle('hidden',s.kind==='hot'||s.kind==='calc');
+      el('next-btn').classList.add('hidden');
+      el('skip-btn').classList.remove('hidden');
+      el('reset-btn').classList.toggle('hidden',!['drag','order','fill','grid','tf','match'].includes(s.kind));
+      el('barmsg').textContent=s.kind==='calc'?`共 ${s.steps.length} 步，完成一步才會打開下一步`:(ST.tries[i]?`已嘗試 ${ST.tries[i]} 次`:'');
+    }
+  }
+  drawTrack();
+  save();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+
 function addTags(t){(t||[]).forEach(x=>{ST.tags[x]=(ST.tags[x]||0)+1})}
 function pass(s,rev){
   answered=true;ST.passed=ST.passed||{};ST.passed[ST.idx]=true;
+  if(ST.drafts) delete ST.drafts[ST.idx];
   if(rev){ST.revealed=ST.revealed||{};ST.revealed[ST.idx]=true;}
   el('q-fb').innerHTML=(rev?`<div class="fb rev"><h4>答案已顯示</h4><p>${rev===true?`已答錯 ${REVEAL_N} 次，正確答案已經自動填好，請對照答案再讀一次解析：`:rev}</p><p>${s.why}</p></div>`:`<div class="fb ok"><h4>✓ 正確</h4><p>${s.why}</p></div>`)+refHTML(s.refs);bindZoom(el('q-fb'));
-  el('check-btn').classList.add('hidden');el('reset-btn').classList.add('hidden');el('next-btn').classList.remove('hidden');
+  el('check-btn').classList.add('hidden');el('reset-btn').classList.add('hidden');el('skip-btn').classList.add('hidden');el('next-btn').classList.remove('hidden');
   el('next-btn').textContent=ST.idx===STAGES.length-1?'看我的診斷卡 →':'下一步 →';
-  el('barmsg').textContent=rev?`第 ${ST.idx+1} 關已顯示答案　·　共嘗試 ${ST.tries[ST.idx]} 次`:`第 ${ST.idx+1} 關過關　·　共嘗試 ${ST.tries[ST.idx]} 次`;
+  el('barmsg').textContent=rev?`第 ${ST.idx+1} 關已顯示答案　·　共嘗試 ${ST.tries[ST.idx]||0} 次`:`第 ${ST.idx+1} 關過關　·　共嘗試 ${ST.tries[ST.idx]||1} 次`;
   if(s.kind==='tf')drawTF(s,s.items.map(()=>true));
   if(s.opts)document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(s.opts[+b.dataset.i].ok)b.classList.add('right')});
   drawTrack();save();
 }
+
 function revealAnswer(s){
   if(s.kind==='drag'){place=Object.assign({},s.sol);sel=null;syncBoard();if(s.then){enterThen(s,true);return;}}
   else if(s.kind==='grid'){gridv={};s.rows.forEach((r,ri)=>r[1].forEach((v,ci)=>gridv[ri+'_'+ci]=v));drawGrid(s);}
   else if(s.kind==='tf'){tfv={};s.items.forEach((it,i)=>tfv[i]=it[1]);}
   else if(s.kind==='order'){seqv=s.items.map((x,i)=>i);drawOrder(s);}
   else if(s.kind==='fill'){fillv={};blanksOf(s).forEach(b=>fillv[b.key]=b.a[0]);fillOn=null;drawFill(s);}
-  else if(s.opts){pick=new Set(s.opts.map((o,i)=>o.ok?i:-1).filter(i=>i>=0));}
+  else if(s.opts){pick=new Set(s.opts.map((o,i)=>o.ok?i:-1).filter(i=>i>=0));document.querySelectorAll('.opt').forEach(b=>b.classList.toggle('sel',pick.has(+b.dataset.i)));}
   pass(s,true);
 }
+
+function enterThen(s,rev){
+  dragDone=true;dragRev=!!rev;sel=null;syncBoard();
+  if(rev){ST.revealed=ST.revealed||{};ST.revealed[ST.idx]=true;}
+  el('check-btn').classList.add('hidden');el('reset-btn').classList.add('hidden');el('skip-btn').classList.remove('hidden');
+  el('q-label').textContent=KIND.calc;el('q-text').textContent=s.then.q;el('q-hint').textContent=s.then.hint||'';
+  if(!dragRev&&!ST.drafts[ST.idx]?.calcVals)calcStep=0;
+  drawCalc(s.then);
+  el('q-opts').insertAdjacentHTML('afterbegin',rev?`<div class="fb rev"><h4>答案已顯示</h4><p>棋盤方格已答錯 ${REVEAL_N} 次，種子已自動放好。對照左邊的棋盤，繼續完成計算。</p></div>`:`<div class="fb ok"><h4>✓ 種子全部放對了</h4><p>接著用棋盤算出各種表現型的機率。</p></div>`);
+  el('q-fb').innerHTML='';
+  el('barmsg').textContent=`第二部分：共 ${s.then.steps.length} 步，完成一步才會打開下一步`;
+  drawTrack();save();
+}
+
 function check(){
   const s=STAGES[ST.idx];if(answered||dragDone||s.kind==='hot'||s.kind==='calc')return;let r;
-  if(s.kind==='drag'){const m={};s.slots.forEach(x=>{m[x.id]=place[x.id]?s.pieces.find(p=>p.id===place[x.id]):null});r=s.check(m);}
-  else if(s.kind==='single'||s.kind==='multi'){const right=new Set(s.opts.map((x,i)=>x.ok?i:-1).filter(i=>i>=0));
-    if(!pick.size){el('barmsg').textContent='先選答案。';return;}
-    const ok=pick.size===right.size&&[...pick].every(i=>right.has(i));
-    const tags=[...pick].filter(i=>!s.opts[i].ok).map(i=>s.opts[i].tag).filter(Boolean);
-    const miss=[...right].filter(i=>!pick.has(i)).length;
-    r=ok?{ok:true}:{ok:false,msg:tags.length?'有選項選錯了，看看下面標出的觀念。':(miss?`還少選了 ${miss} 項。`:'再想一次。'),tags};
-    document.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i;if(pick.has(i))b.classList.add(s.opts[i].ok?'right':'wrong')});
-    if(!ok)setTimeout(()=>document.querySelectorAll('.opt').forEach(b=>b.classList.remove('wrong','right')),1400);}
-  else if(s.kind==='order'){
-    if(seqv.filter(x=>x!=null).length<s.items.length){el('barmsg').textContent=`還有 ${s.items.length-seqv.filter(x=>x!=null).length} 張卡片沒排。`;return;}
-    const mark=s.items.map((x,i)=>seqv[i]===i);const w=mark.filter(x=>!x).length;
-    r=w?{ok:false,msg:`有 ${w} 個位置不對（紅框）。從第一個紅框開始想：它的前一步產生了什麼？`,tags:[s.tag]}:{ok:true};
-    drawOrder(s,w?mark:null);}
-  else if(s.kind==='fill'){
-    const BL=blanksOf(s);if(BL.some(b=>!fillv[b.key])){el('barmsg').textContent='還有空格沒填。';return;}
-    const mark={};const grp={};
-    BL.forEach(b=>{if(b.grp){(grp[b.ei+b.grp]=grp[b.ei+b.grp]||[]).push(b)}else mark[b.key]=b.a.includes(fillv[b.key])});
-    Object.values(grp).forEach(G=>{const need=G[0].a.slice().sort().join('|'),got=G.map(b=>fillv[b.key]).sort().join('|');G.forEach(b=>mark[b.key]=need===got||(b.a.includes(fillv[b.key])&&new Set(G.map(x=>fillv[x.key])).size===G.length&&G.every(x=>x.a.includes(fillv[x.key]))))});
-    const w=Object.values(mark).filter(x=>!x).length;
-    const tg=[...new Set(BL.filter(b=>!mark[b.key]).map(b=>s.eqs[b.ei].tag).filter(Boolean))];
-    r=w?{ok:false,msg:`有 ${w} 個空格不對（紅框）。${s.failHint||''}`,tags:tg}:{ok:true};
-    fillOn=null;drawFill(s,w?mark:null);}
-  else if(s.kind==='match'){
-    if(Object.keys(matchv).length<s.rows.length){el('barmsg').textContent='每一列都要選。';return;}
-    const mark=s.rows.map((rw,i)=>matchv[i]===rw.ans);const w=mark.filter(x=>!x).length;
-    const same=matchv[0]===matchv[2];
-    r=w?{ok:false,msg:same?'圖 (a) 和圖 (b) 的橫軸選成一樣了，兩張圖的橫軸不同。':`有 ${w} 列不對（紅框）。圖 (b) 先升後急降，像不像酵素遇到太高溫的樣子？`,tags:[s.tag]}:{ok:true};
-    drawMatch(s,w?mark:null);}
+  if(s.kind==='drag'){
+    const m={};s.slots.forEach(x=>{m[x.id]=place[x.id]?s.pieces.find(p=>p.id===place[x.id]):null});
+    r=s.check(m);
+    if(r.ok&&s.then){enterThen(s);return;}
+  }
   else if(s.kind==='grid'){
-    const n=s.rows.length*s.cols.length;if(Object.keys(gridv).length<n){el('barmsg').textContent=`還有 ${n-Object.keys(gridv).length} 格沒填。`;return;}
-    const mark=s.rows.map((rw,ri)=>rw[1].every((v,ci)=>gridv[ri+'_'+ci]===v));const w=mark.filter(x=>!x).length;
-    r=w?{ok:false,msg:`有 ${w} 列有錯（紅色）。每一列檢查三格。`,tags:[...new Set(s.rows.filter((rw,i)=>!mark[i]).map(rw=>rw[2]))]}:{ok:true};
-    drawGrid(s,w?mark:null);}
-  else if(s.kind==='tf'){
-    if(Object.keys(tfv).length<s.items.length){el('barmsg').textContent=`還有 ${s.items.length-Object.keys(tfv).length} 句沒作答。`;return;}
-    const mark=s.items.map((it,i)=>tfv[i]===it[1]);const w=mark.filter(x=>!x).length;
-    r=w?{ok:false,msg:`有 ${w} 句判斷錯了（紅框）。`,tags:[...new Set(s.items.filter((it,i)=>!mark[i]).map(it=>it[2]))]}:{ok:true};
-    drawTF(s,w?mark:null);}
-  ST.tries[ST.idx]=(ST.tries[ST.idx]||0)+1;
-  if(r.ok){if(s.then){enterThen(s,false);return;}pass(s);return;}
-  addTags(r.tags);
-  if(ST.tries[ST.idx]>=REVEAL_N){revealAnswer(s);drawTrack();save();return;}
-  const tg=(r.tags||[]).map(t=>`<span class="tag">${TAGS[t][0]}</span>`).join('');
-  const left=REVEAL_N-ST.tries[ST.idx];
-  el('q-fb').innerHTML=`<div class="fb no"><h4>再試一次</h4><p>${r.msg||'還沒對。'}</p>${tg?`<p>${tg}</p>`:''}<p class="left">再答錯 ${left} 次，就會自動顯示答案。</p></div>`+(s.preRefs?refHTML(s.preRefs):'');bindZoom(el('q-fb'));
+    let miss=0,wrong=0,errTag=null;
+    s.rows.forEach((row,ri)=>{
+      s.cols.forEach((col,ci)=>{
+        const k=ri+'_'+ci,v=gridv[k],want=row[1][ci];
+        if(v==null)miss++;else if(v!==want){wrong++;if(!errTag&&row[2])errTag=row[2];}
+      });
+    });
+    if(miss)r={ok:false,msg:`還有 ${miss} 格未填（點一下打勾、點兩下打叉）。`,tags:[]};
+    else if(wrong)r={ok:false,msg:`有 ${wrong} 格判斷有誤。`,tags:errTag?[errTag]:(s.tag?[s.tag]:[])};
+    else r={ok:true};
+  }
+  else if(s.kind==='single'||s.kind==='multi'){
+    if(!pick.size)r={ok:false,msg:'請先選擇答案。',tags:[]};
+    else{
+      const right=new Set(s.opts.map((o,i)=>o.ok?i:-1).filter(i=>i>=0));
+      const isEq=pick.size===right.size&&[...pick].every(x=>right.has(x));
+      if(isEq)r={ok:true};
+      else{
+        const badPick=[...pick].find(x=>!right.has(x));
+        const errTag=badPick!=null&&s.opts[badPick].tag?s.opts[badPick].tag:(s.tag||null);
+        r={ok:false,msg:s.kind==='single'?'不對喔，再想想看。':'選項組合不完全正確，請再檢查一下。',tags:errTag?[errTag]:[]};
+      }
+    }
+  }
+
+  if(r.ok)pass(s);
+  else{
+    ST.tries[ST.idx]=(ST.tries[ST.idx]||0)+1;
+    if(ST.tries[ST.idx]>=REVEAL_N){revealAnswer(s);return;}
+    const left=REVEAL_N-ST.tries[ST.idx];
+    el('q-fb').innerHTML=`<div class="fb no"><h4>尚未正確</h4><p>${r.msg}</p><div class="left">再答錯 ${left} 次將自動顯示答案與解析。</div></div>`;
+    bindZoom(el('q-fb'));addTags(r.tags);
+  }
   el('barmsg').textContent=`已嘗試 ${ST.tries[ST.idx]} 次`;
   drawTrack();save();
 }
+
 /* ── 診斷卡 ── */
 function finish(){
+  saveDraft();
   ST.done=true;save();
   ['play','bar'].forEach(x=>el(x).classList.add('hidden'));
-  const mins=Math.max(1,Math.round((Date.now()-ST.t0)/60000)),tr=STAGES.map((s,i)=>ST.tries[i]||0);
-  const one=tr.filter(t=>t===1).length,two=tr.filter(t=>t===2).length,hard=tr.filter(t=>t>=3).length,w=ST.who;
-  const RV=ST.revealed||{};const rows=STAGES.map((s,i)=>{const t=tr[i],c=(t>=3||RV[i])?'t3':t===2?'t2':'t1';return `<div class="row ${c}"><span class="i">${String(i+1).padStart(2,'0')}</span><span>${s.t}${RV[i]?'<span class="tag" style="margin-left:8px">看了答案</span>':''}</span><span class="kd">${KSHORT[s.kind]}</span><span class="m">${t} 次</span></div>`}).join('');
-  const mk=Object.keys(ST.tags).sort((a,b)=>ST.tags[b]-ST.tags[a]);
-  const miss=mk.length?mk.map(k=>`<div class="mi"><b>${TAGS[k][0]}　<span>觸發 ${ST.tags[k]} 次</span></b>${TAGS[k][1]}<br><span>回頭看：${TAGS[k][2]}</span></div>`).join('')
+  const mins=Math.max(1,Math.round((Date.now()-(ST.t0||Date.now()))/60000));
+  const tr=STAGES.map((s,i)=>ST.tries[i]||0);
+  const one=tr.filter((t,i)=>(ST.passed&&ST.passed[i])&&t===1).length;
+  const two=tr.filter((t,i)=>(ST.passed&&ST.passed[i])&&t===2).length;
+  const hard=tr.filter((t,i)=>(ST.passed&&ST.passed[i])&&t>=3).length;
+  const passedCount=Object.keys(ST.passed||{}).length;
+  const skippedCount=STAGES.length-passedCount;
+  const w=ST.who||{};
+  const RV=ST.revealed||{};
+  const rows=STAGES.map((s,i)=>{
+    const isPassed=ST.passed&&ST.passed[i];
+    const t=tr[i];
+    let c='pending',stLabel='未作答';
+    if(isPassed){
+      if(RV[i]||t>=3){c='t3';stLabel=`${t} 次（已通關）`;}
+      else if(t===2){c='t2';stLabel='2 次（已通關）';}
+      else{c='t1';stLabel='1 次（完美通關）';}
+    } else if(t>0){
+      c='skip';stLabel=`嘗試 ${t} 次（暫跳過）`;
+    }
+    return `<button type="button" class="row ${c} interactive-row" data-stage="${i}" title="點擊跳回第 ${i+1} 題進行測驗或訂正">
+      <span class="i">${String(i+1).padStart(2,'0')}</span>
+      <span>${s.t}${RV[i]?'<span class="tag" style="margin-left:8px">看了答案</span>':''}${!isPassed&&t>0?'<span class="tag" style="margin-left:8px;background:var(--warn-soft);color:var(--warn)">未完成</span>':''}</span>
+      <span class="kd">${KSHORT[s.kind]||''}</span>
+      <span class="m">${stLabel}</span>
+    </button>`;
+  }).join('');
+  const mk=Object.keys(ST.tags||{}).sort((a,b)=>ST.tags[b]-ST.tags[a]);
+  const miss=mk.length?mk.map(k=>`<div class="mi"><b>${TAGS[k]?TAGS[k][0]:k}　<span>觸發 ${ST.tags[k]} 次</span></b>${TAGS[k]?TAGS[k][1]:''}<br><span>回頭看：${TAGS[k]?TAGS[k][2]:''}</span></div>`).join('')
     :`<div class="clean">沒有觸發任何迷思概念——每一關的判斷都一次到位。</div>`;
   el('done').innerHTML=`<div class="card2"><h1>遺傳法則　學習診斷卡</h1>
     <p class="who">${w.n||'（未填姓名）'}　|　${w.c||'—'} 班　${w.s?'座號 '+w.s:''}　|　${new Date().toLocaleDateString('zh-TW')}　|　用時約 ${mins} 分鐘</p>
-    <div class="stats"><div class="stat"><div class="v" style="color:var(--ok)">${one}</div><div class="l">一次過關</div></div>
+    <div class="stats">
+      <div class="stat"><div class="v" style="color:var(--ok)">${one}</div><div class="l">一次過關</div></div>
       <div class="stat"><div class="v" style="color:var(--warn)">${two}</div><div class="l">試了 2 次</div></div>
       <div class="stat"><div class="v" style="color:var(--no)">${hard}</div><div class="l">試了 3 次以上</div></div>
       <div class="stat"><div class="v" style="color:var(--warn)">${Object.keys(ST.revealed||{}).length}</div><div class="l">看了答案</div></div>
-      <div class="stat"><div class="v">${tr.reduce((a,b)=>a+b,0)}</div><div class="l">總作答次數</div></div></div>
-    <h3 class="sec">逐關紀錄</h3><div class="rows">${rows}</div>
+      <div class="stat"><div class="v" style="color:var(--accent)">${passedCount} / ${STAGES.length}</div><div class="l">通關題數</div></div>
+      <div class="stat"><div class="v">${tr.reduce((a,b)=>a+b,0)}</div><div class="l">總作答次數</div></div>
+    </div>
+    <h3 class="sec">逐關紀錄（點擊任一題目可直接跳回重測／訂正）</h3><div class="rows">${rows}</div>
     <h3 class="sec">需要回頭補的觀念</h3><div class="miss">${miss}</div>
     <div class="barin" style="padding:0"><span class="barmsg">把這張卡截圖，上傳給老師。</span>
       <button class="btn ghost" id="relearn">回圖解教學</button><button class="btn" id="again">再玩一次</button></div></div>`;
-  el('done').classList.remove('hidden');drawTrack();
-  el('again').onclick=()=>{ST={idx:0,tries:{},tags:{},passed:{},who:ST.who,t0:Date.now(),done:false};STAGES.forEach(s=>{delete s._disp;delete s._bank;delete s._perm});el('done').classList.add('hidden');startPlay();};
+  el('done').classList.remove('hidden');
+  drawTrack();
+  document.querySelectorAll('.interactive-row').forEach(btn=>{
+    btn.onclick=()=>{
+      const target=parseInt(btn.dataset.stage,10);
+      if(!isNaN(target)){
+        el('done').classList.add('hidden');
+        ['play','topbar','bar'].forEach(x=>el(x).classList.remove('hidden'));
+        show(target);
+      }
+    };
+  });
+  el('again').onclick=()=>{ST={idx:0,tries:{},tags:{},passed:{},drafts:{},who:ST.who,t0:Date.now(),done:false};STAGES.forEach(s=>{delete s._optPerm;delete s._disp;});el('done').classList.add('hidden');startPlay();};
   el('relearn').onclick=()=>{el('done').classList.add('hidden');openLearn(0)};
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
 /* ── 畫面切換 ── */
 function grabWho(){ST.who={n:el('f-name').value.trim(),c:el('f-cls').value.trim(),s:el('f-no').value.trim()};save();}
 function openLearn(i){['intro','play','bar','done'].forEach(x=>el(x).classList.add('hidden'));el('topbar').classList.add('hidden');el('learn').classList.remove('hidden');showLearn(i||0);}
@@ -1137,27 +1360,73 @@ function startPlay(){
   if(!ST.t0)ST.t0=Date.now();
   ['intro','learn','done'].forEach(x=>el(x).classList.add('hidden'));
   ['play','topbar','bar'].forEach(x=>el(x).classList.remove('hidden'));
-  if(ST.done){ST={idx:0,tries:{},tags:{},passed:{},who:ST.who,t0:Date.now(),done:false}}
+  if(ST.done){ST={idx:0,tries:{},tags:{},passed:{},drafts:{},who:ST.who,t0:Date.now(),done:false}}
   show(ST.idx||0);
 }
+
 el('go').onclick=()=>{grabWho();startPlay()};
 el('go-learn').onclick=()=>{grabWho();openLearn(0)};
-el('go-show').onclick=()=>openShow(0);
-el('to-learn').onclick=()=>openLearn(0);
+el('to-learn').onclick=()=>{
+  saveDraft();
+  const targetLearn=LEARN_FOR_STAGE[ST.idx]??0;
+  openLearn(targetLearn);
+};
+el('l-resume').onclick=()=>{
+  ['intro','learn','done'].forEach(x=>el(x).classList.add('hidden'));
+  ['play','topbar','bar'].forEach(x=>el(x).classList.remove('hidden'));
+  show(ST.idx||0);
+};
 el('l-prev').onclick=()=>LI>0&&showLearn(LI-1);
 el('l-next').onclick=()=>LI<LEARN.length-1?showLearn(LI+1):startPlay();
 el('check-btn').onclick=check;
-el('reset-btn').onclick=()=>{if(answered||dragDone)return;const s=STAGES[ST.idx];place={};sel=null;seqv=[];fillv={};fillOn=null;matchv={};gridv={};tfv={};
-  if(s.kind==='drag')syncBoard();else renderPanel(s);el('q-fb').innerHTML=s.preRefs?refHTML(s.preRefs):'';bindZoom(el('q-fb'));el('barmsg').textContent='';};
+el('reset-btn').onclick=()=>{
+  if(answered)return;
+  const s=STAGES[ST.idx];
+  place={};sel=null;seqv=[];fillv={};fillOn=null;matchv={};gridv={};tfv={};
+  if(s.kind==='drag'&&s.then){
+    dragDone=false;dragRev=false;calcStep=0;calcVals={};calcWrong={};calcRev={};
+  }
+  if(ST.drafts) delete ST.drafts[ST.idx];
+  if(s.kind==='drag')syncBoard();
+  renderPanel(s);
+  el('q-fb').innerHTML=s.preRefs?refHTML(s.preRefs):'';bindZoom(el('q-fb'));
+  el('barmsg').textContent='';
+  save();
+};
+el('prev-btn').onclick=()=>{
+  if(ST.idx>0){
+    saveDraft();
+    show(ST.idx-1);
+  }
+};
+el('skip-btn').onclick=()=>{
+  saveDraft();
+  if(ST.idx+1<STAGES.length) show(ST.idx+1);
+  else finish();
+};
+el('finish-btn').onclick=()=>{
+  saveDraft();
+  finish();
+};
 el('next-btn').onclick=()=>ST.idx+1<STAGES.length?show(ST.idx+1):finish();
+el('question-select').onchange=(e)=>{
+  const target=parseInt(e.target.value,10);
+  if(!isNaN(target)&&target>=0&&target<STAGES.length){
+    saveDraft();
+    show(target);
+  }
+};
+
 const B=el('board');
 B.addEventListener('pointerdown',onDown);B.addEventListener('pointermove',onMove);B.addEventListener('pointerup',onUp);B.addEventListener('pointercancel',onUp);
-B.addEventListener('click',hotClick);
 B.addEventListener('keydown',e=>{const g=e.target.closest&&e.target.closest('.piece');if(g&&(e.key==='Enter'||e.key===' ')){e.preventDefault();sel=(sel===g.dataset.piece?null:g.dataset.piece);syncBoard();}});
-el('heroimg').innerHTML=`<img src="${IMG.fig23}" alt="課本圖2-3 單一性狀的遺傳實驗結果">`;
+el('heroimg').innerHTML=`<img src="${IMG.fig25}" alt="課本 P78 圖2-5 兩種性狀的遺傳">`;
+window.addEventListener('pagehide',saveDraft);
+window.addEventListener('beforeunload',saveDraft);
+
 (function boot(){
   const saved=load();
-  if(saved&&!saved.done&&(saved.idx>0||Object.keys(saved.tries||{}).length)){
+  if(saved&&!saved.done&&(saved.idx>0||Object.keys(saved.tries||{}).length||Object.keys(saved.drafts||{}).length)){
     ST=Object.assign(ST,saved);el('f-name').value=ST.who.n||'';el('f-cls').value=ST.who.c||'';el('f-no').value=ST.who.s||'';
     el('go').textContent=`繼續闖關（第 ${ST.idx+1} 關）`;}
 })();
