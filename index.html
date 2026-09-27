@@ -422,6 +422,43 @@ button.row:hover{border-color:var(--accent);background:var(--accent-soft);transf
   }
 }
 
+
+/* === MOBILE-FIT：手機版面優化（底部功能列不再遮住題目） === */
+:root{--barh:120px}
+main{padding-bottom:calc(var(--barh) + 24px)!important}
+html{scroll-padding-bottom:calc(var(--barh) + 12px)}
+#bar .barmsg:empty{display:none}
+@media (max-width:619px), (max-height:560px){
+  /* 頂部進度軌：縮小並改為不固定，讓出畫面給題目 */
+  .topbar{position:static;box-shadow:none}
+  .topin{gap:5px;padding-block:6px}
+  .tprow{flex-wrap:nowrap;gap:8px;align-items:center}
+  .brand{font-size:16px;white-space:nowrap}
+  .brand .version{display:none}
+  .crumb{flex:1 1 auto;min-width:0;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .linkbtn{font-size:13px;white-space:nowrap;flex:none}
+  .tseg{height:26px}
+  .legend{display:none}
+  main{padding-top:10px}
+  /* 底部功能列：整理成兩列網格，高度約減半 */
+  .bar{padding:6px 10px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 14px rgba(0,0,0,.08)}
+  #bar .barin{display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+  #bar .barin>*{margin:0!important;min-width:0}
+  #bar .barmsg{grid-column:1/-1;order:-1;width:auto;font-size:12.5px;line-height:1.35;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #bar .free-nav{grid-column:span 3;order:1;width:auto}
+  #bar .free-nav label{display:none}
+  #bar .free-nav select{width:100%;min-width:0;padding:8px 22px 8px 8px;font-size:13px}
+  #prev-btn{grid-column:span 1;order:2;font-size:0!important;padding:8px 0}
+  #prev-btn::before{content:"←";font-size:17px}
+  #skip-btn{grid-column:span 2;order:3}
+  #reset-btn{grid-column:span 2;order:4}
+  #finish-btn{grid-column:span 2;order:5}
+  #check-btn,#next-btn{grid-column:span 2;order:6}
+  .bar .btn{padding:8px 4px;font-size:13.5px;min-height:38px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .btn.small{font-size:12.5px}
+  /* 題目圖面依實際可視高度縮放 */
+  svg.board,.grid.wide svg.board{max-height:calc(100dvh - var(--barh) - 24px)!important}
+}
 </style>
 </head>
 <body>
@@ -1490,6 +1527,18 @@ window.addEventListener('beforeunload',saveDraft);
     if(saved.done)finish();
     else if(saved.idx>0||Object.keys(saved.tries||{}).length||Object.keys(saved.drafts||{}).length)el('go').textContent=`繼續闖關（第 ${ST.idx+1} 關）`;
   }
+})();
+</script>
+<script>
+/* MOBILE-FIT：依底部功能列實際高度，自動調整頁面底部留白 */
+(function(){
+  var bar=document.getElementById('bar');if(!bar)return;
+  function fit(){var h=bar.classList.contains('hidden')?0:bar.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--barh',Math.ceil(h)+'px');}
+  if(window.ResizeObserver)new ResizeObserver(fit).observe(bar);
+  new MutationObserver(fit).observe(bar,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize',fit);window.addEventListener('orientationchange',function(){setTimeout(fit,300)});
+  fit();
 })();
 </script>
 </body></html>
